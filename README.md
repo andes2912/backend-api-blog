@@ -14,19 +14,19 @@
 
 ### Cara Install
 ```bash
-#install dependencies
+# install dependencies
 $ composer install
 
-#setting .env
+# setting .env
 $ php artisan cp .env.example .env
 
-#generate key
+# generate key
 $ php artisan key:generate
 
-#install passport key
+# install passport key
 $ php artisan passport:install
 
-#run server
+# run server
 $ php artisan serve
 ```
 
