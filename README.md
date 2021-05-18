@@ -21,7 +21,7 @@ $ composer install
 $ php artisan cp .env.example .env
 
 #generate key
-$php artisan key:generate
+$ php artisan key:generate
 
 #install passport key
 $ php artisan passport:install
