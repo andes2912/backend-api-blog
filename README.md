@@ -12,8 +12,23 @@
 - Show News By Category
 - Error Handle if News, Category Not Found or Empty
 
+### Cara Install
+```bash
+#install dependencies
+$ composer install
 
+#setting .env
+$ php artisan cp .env.example .env
 
+#generate key
+$php artisan key:generate
+
+#install passport key
+$ php artisan passport:install
+
+#run server
+$ php artisan serve
+```
 
 ## Code for Frontend
 
