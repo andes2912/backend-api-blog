@@ -23,6 +23,9 @@ $ php artisan cp .env.example .env
 # generate key
 $ php artisan key:generate
 
+# migrate database
+$ php artisan migrate
+
 # install passport key
 $ php artisan passport:install
 
