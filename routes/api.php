@@ -24,6 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
   Route::post('logout','API\Auth\LoginController@logout'); // Logout
   Route::get('me','API\Account\MeController@index')->middleware('auth:api'); // Me
   Route::put('update-profile/{id}','API\Account\MeController@update')->middleware('auth:api'); // Update
+  Route::get('log-activity','API\Log\LogController@index')->middleware('auth:api'); // Log Activity
 
 /// Category \\\
 Route::get('category','API\Category\CategoryController@index'); //Index
