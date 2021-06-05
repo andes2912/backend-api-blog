@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\News;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{News,Category,User};
+use App\Models\{News,Category,User,ActivityLog};
 use Auth;
 use Validator;
 use Str;
@@ -53,9 +53,16 @@ class NewsController extends Controller
       ]);
 
       if ($news) {
+        $ActivityLog = ActivityLog::create([
+          'user_id' => Auth::id(),
+          'method'  => 'Create',
+          'Note'    => 'Create News'
+        ]);
+
         return \response()->json([
           'message' => 'Berita Berhasil Ditambah',
-          'data'    => $news
+          'data'    => $news,
+          'log'     => $ActivityLog
         ],200);
       }
     }
@@ -95,9 +102,16 @@ class NewsController extends Controller
       $news->save();
 
       if ($news) {
+        $ActivityLog = ActivityLog::create([
+          'user_id' => Auth::id(),
+          'method'  => 'Update',
+          'Note'    => 'Update News'
+        ]);
+
         return \response()->json([
           'message' => 'Berita Berhasil Diupdate',
-          'data'    => $news
+          'data'    => $news,
+          'log'     => $ActivityLog
         ],200);
       }
 

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Validator;
-use App\Models\User;
+use App\Models\{User,ActivityLog};
 use Auth;
 
 class LoginController extends Controller
@@ -27,10 +27,17 @@ class LoginController extends Controller
       $tokenResult = $user->createToken('Personal Access Token');
       $token = $tokenResult->accessToken;
 
+      $ActivityLog = ActivityLog::create([
+          'user_id' => Auth::id(),
+          'method'  => 'Login',
+          'Note'    => 'Login successfully'
+        ]);
+
       return \response()->json([
         'success' => true,
         'token'   => $token,
         'user'    => $user,
+        'log'     => $ActivityLog
       ], 200);
     }
 
@@ -41,9 +48,16 @@ class LoginController extends Controller
         $user = Auth::user()->token();
         $user->revoke();
 
+        $ActivityLog = ActivityLog::create([
+          'user_id' => Auth::id(),
+          'method'  => 'LogOut',
+          'Note'    => 'Logout successfully'
+        ]);
+
         return response()->json([
           'success' => true,
-          'message' => 'Logout successfully'
+          'message' => 'Logout successfully',
+          'log'     => $ActivityLog
         ],200);
       }else {
         return response()->json([

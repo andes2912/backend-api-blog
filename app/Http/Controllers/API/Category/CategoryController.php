@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\Category;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Models\{Category,ActivityLog};
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Auth;
@@ -46,9 +46,16 @@ class CategoryController extends Controller
       ]);
 
       if ($category) {
+        $ActivityLog = ActivityLog::create([
+          'user_id' => Auth::id(),
+          'method'  => 'Create',
+          'Note'    => 'Create Category'
+        ]);
+
         return \response()->json([
           'message' => 'Category Berhasil Ditambah',
-          'data'    => $category
+          'data'    => $category,
+          'log'     => $ActivityLog
         ],200);
       }
     }
@@ -81,9 +88,16 @@ class CategoryController extends Controller
       $category->save();
 
       if ($category) {
+        $ActivityLog = ActivityLog::create([
+          'user_id' => Auth::id(),
+          'method'  => 'Update',
+          'Note'    => 'Update Category'
+        ]);
+
         return \response()->json([
           'message' => 'Category Berhasil Diupdate',
-          'data'    => $category
+          'data'    => $category,
+          'log'     => $ActivityLog
         ],200);
       }
     }
